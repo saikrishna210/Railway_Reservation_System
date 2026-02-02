@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+ /* PAGE BACKGROUND */
+body {
+    background: linear-gradient(120deg, #0f2027, #203a43, #2c5364);
+}
+
+/* GREEN CONTAINER BEHIND TABLE */
+.table-container {
+    background: #6b8e23; 
+    padding: 25px;
+    border-radius: 14px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+}
+
+/* REMOVE BOOTSTRAP WHITE BACKGROUND */
+.table {
+    background: transparent !important;
+}
+
+/* TABLE HEADER */
+.table thead th {
+    background: #212529 !important;
+    color: #ffffff !important;
+}
+
+/* TABLE ROW BACKGROUND */
+.table tbody tr {
+    background: rgba(255, 255, 255, 0.92) !important;
+    transition: all 0.3s ease;
+}
+
+/* ROW HOVER EFFECT */
+.table tbody tr:hover {
+    background: rgba(255, 255, 255, 1) !important;
+    transform: scale(1.01);
+}
+
+/* TEXT COLORS */
+.table td {
+    color: #000;
+    font-weight: 500;
+}
+
+/* ACTION BUTTON */
+.btn-view {
+    border-radius: 20px;
+    padding: 6px 16px;
+    transition: all 0.3s ease;
+}
+
+.btn-view:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(13,110,253,0.5);
+}
+
+</style>
+<body>
+    {% extends 'train/base.html' %}
+
+{% block title %}Available Trains{% endblock %}
+
+{% block content %}
+<h3 class="mb-4">Available Trains</h3>
+
+{% if trains %}
+<div class="table-container">
+<table class="table table-bordered">
+    <thead class="table-dark">
+        <tr>
+            <th>Train Name</th>
+            <th>Route</th>
+            <th>Seats</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for train in trains %}
+        <tr>
+            <td>{{ train.Train_name }}</td>
+            <td>{{ train.Source }} → {{ train.Destination }}</td>
+            <td>{{ train.Available_seats }}</td>
+            <td>
+                <a href="{% url 'train:train_detail' train.id %}"
+                   class="btn btn-primary btn-sm">
+                    View
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+{% else %}
+<p class="text-danger text-center">No trains available.</p>
+{% endif %}
+{% endblock %}
+
+</body>
+</html>

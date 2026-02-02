@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    /* TABLE ENTRANCE */
+body {
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+}
+
+.booking-table {
+    animation: tableFade 0.8s ease;
+}
+
+/* ROW HOVER EFFECT */
+.booking-table tbody tr {
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.booking-table tbody tr:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+/* SHAKE ANIMATION */
+@keyframes shake {
+    0% { transform: translateX(0); }
+    20% { transform: translateX(-3px); }
+    40% { transform: translateX(3px); }
+    60% { transform: translateX(-3px); }
+    80% { transform: translateX(3px); }
+    100% { transform: translateX(0); }
+}
+
+/* APPLY SHAKE TO TEXT */
+.shake-text {
+    display: inline-block;
+}
+
+.shake-text:hover {
+    animation: shake 0.35s ease-in-out;
+}
+
+/* STATUS COLORS */
+.status-confirmed {
+    color: #198754;
+    font-weight: bold;
+}
+
+.status-pending {
+    color: #ffc107;
+    font-weight: bold;
+}
+
+.status-cancelled {
+    color: #dc3545;
+    font-weight: bold;
+}
+
+/* BUTTON POP */
+.action-btn {
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.action-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.25);
+}
+.my-bookings-title {
+    font-weight: bold;
+    font-size: 36px;
+    text-align: center;
+    background: linear-gradient(pink);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* TABLE ANIMATION */
+@keyframes tableFade {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+</style>
+<body>
+    {% extends 'train/base.html' %}
+
+{% block title %}My Bookings{% endblock %}
+
+{% block content %}
+<h2 class="my-bookings-title">My Bookings</h2>
+
+{% if bookings %}
+<p>Total bookings: {{ bookings|length }}</p>
+
+<table class="table table-bordered booking-table">
+    <thead class="table-dark">
+        <tr>
+            <th>PNR</th>
+            <th>Train</th>
+            <th>Journey Date</th>
+            <th>Seats</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+    <tbody>
+    {% for booking in bookings %}
+        <tr>
+            <td><span class="shake-text">{{ booking.pnr }}</span></td>
+            <td><span class="shake-text">{{ booking.Train }}</span></td>
+            <td><span class="shake-text">{{ booking.Journey_Date }}</span></td>
+            <td><span class="shake-text">{{ booking.Number_of_seats }}</span></td>
+            <td>{{ booking.Booking_status }}</td>
+
+            <td>
+                {% if booking.Booking_status == "CANCELLED" %}
+                <a href="{% url 'train:refund_status' booking.id %}" class="btn btn-info action-btn">
+                View Refund
+                </a>
+            {% else %}
+                <form method="post" action="{% url 'train:cancel_booking' booking.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger action-btn">
+                        Cancel
+                    </button>
+                </form>
+                {% endif %}
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% else %}
+<p class="text-center text-muted">No bookings found.</p>
+{% endif %}
+
+{% endblock %}
+</body>
+</html>

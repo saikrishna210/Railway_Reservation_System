@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    /* PAGE BACKGROUND */
+body{
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+}
+
+/* SUCCESS CARD */
+.success-wow{
+    max-width: 900px;
+    margin: 70px auto;
+    background: linear-gradient(135deg, #ffe4ec, #ffd1e1);
+    border-radius: 22px;
+    padding: 40px 50px;
+    text-align: center;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.3);
+    animation: floatIn 0.9s ease;
+    transition: transform 0.4s ease;
+}
+
+.success-wow:hover{
+    transform: translateY(-6px);
+}
+
+/* TITLE */
+.success-wow h3{
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+    color: #0f5132;
+    animation: glow 2s infinite;
+}
+
+/* SUBTITLE */
+.success-sub{
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+/* DETAILS */
+.success-wow p{
+    font-size: 16px;
+    margin: 8px 0;
+}
+
+/* HIGHLIGHT TEXT */
+.highlight{
+    font-weight: bold;
+    display: inline-block;
+    animation: pulse 1.6s infinite;
+}
+
+/* CONFIRMED STATUS */
+.status-confirmed{
+    color: #198754;
+    font-weight: bold;
+}
+
+/* BUTTON */
+.success-btn{
+    margin-top: 30px;
+    padding: 14px 45px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 35px;
+    background: linear-gradient(45deg, #0d6efd, #0b5ed7);
+    color: #fff;
+    border: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.success-btn:hover{
+    transform: scale(1.08);
+    box-shadow: 0 15px 30px rgba(13,110,253,0.6);
+}
+
+/* ANIMATIONS */
+@keyframes floatIn{
+    from{opacity:0; transform:translateY(40px);}
+    to{opacity:1; transform:translateY(0);}
+}
+
+@keyframes glow{
+    0%{text-shadow:0 0 5px rgba(25,135,84,0.4);}
+    50%{text-shadow:0 0 18px rgba(25,135,84,0.9);}
+    100%{text-shadow:0 0 5px rgba(25,135,84,0.4);}
+}
+
+@keyframes pulse{
+    0%{opacity:1;}
+    50%{opacity:0.6;}
+    100%{opacity:1;}
+}
+
+</style>
+<body>
+   {% extends 'train/base.html' %}
+
+{% block title %}Payment Success{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="alert alert-success text-center success-wow">
+        <h4>Payment Successful!</h4>
+        <p class="success-sub">Your ticket has been <span class="highlight status-confirmed">CONFIRMED</span></p>
+        <hr>
+        <p><strong>PNR:</strong> {{ booking.pnr }}</p>
+        <p><strong>Train:</strong> {{ booking.Train }}</p>
+        <p><strong>Seats:</strong> {{ booking.Number_of_seats }}</p>
+        <p><strong>Amount Paid:</strong> ₹{{ payment.Amount }}</p>
+        <p><strong>Status:</strong> {{ booking.Booking_status }}</p>
+    </div>
+
+    <div class="text-center">
+        <a href="{% url 'train:my_bookings' %}" class="btn success-btn">
+            View My Bookings
+        </a>
+    </div>
+</div>
+{% endblock %}
+
+</body>
+</html>

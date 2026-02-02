@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Railway Reservation Login</title>
+
+    <style>
+        body{
+            height:100vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            background:#000;
+        }
+
+        /* MAIN CONTAINER */
+        .container{
+            width:1000px;
+            height:550px;
+            display:flex;
+            box-shadow:0 0 30px rgba(0,0,0,0.8);
+        }
+
+        /* LEFT IMAGE */
+        .left{
+            width:55%;
+            background:url("https://c8.alamy.com/comp/2G9AEWW/furka-steam-train-mountain-route-switzerland-adventure-travel-during-the-coronavirus-2G9AEWW.jpg")
+            no-repeat center/cover;
+            position:relative;
+        }
+
+        .left::after{
+            content:"";
+            position:absolute;
+            inset:0;
+            background:linear-gradient(to right,
+                rgba(0,0,0,0.6)
+            );
+        }
+
+        /* RIGHT LOGIN */
+        .right{
+            width:45%;
+            background:#111;
+            padding:70px 50px;
+            color:#fff;
+        }
+
+        .logo{
+            color:orange;
+            font-weight:bold;
+            margin-bottom:10px;
+        }
+
+        .title{
+            font-size:26px;
+            margin-bottom:30px;
+        }
+
+        form p{
+            margin-bottom:20px;
+        }
+
+        label{
+            font-size:12px;
+            color:#bbb;
+            display:block;
+            margin-bottom:5px;
+        }
+
+        input{
+            width:100%;
+            padding:10px 5px;
+            background:transparent;
+            border:none;
+            border-bottom:1px solid #555;
+            color:#fff;
+            outline:none;
+        }
+
+        input:focus{
+            border-bottom:1px solid orange;
+        }
+
+        button{
+            width:100%;
+            margin-top:25px;
+            padding:12px;
+            background:pink;
+            border:none;
+            font-weight:bold;
+            cursor:pointer;
+        }
+
+        button:hover{
+            background:#ff7b00;
+        }
+
+        .error{
+            color:#ff4d4d;
+            margin-bottom:15px;
+            font-size:14px;
+        }
+
+        .footer{
+            margin-top:25px;
+            text-align:center;
+            font-size:12px;
+            color:#aaa;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="left"></div>
+    <div class="right">
+        <div class="logo">IRCTC</div>
+        <div class="title">User Login</div>
+        {% if form.errors %}
+            <div class="error">Invalid username or password</div>
+        {% endif %}
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">LOGIN</button>
+        </form>
+        <div class="footer">
+            Secure Railway Reservation System
+        </div>
+    </div>
+</div>
+<script>
+    // Auto focus on username field
+    document.addEventListener("DOMContentLoaded", function(){
+        let input = document.querySelector("input[type='text']");
+        if(input){
+            input.focus();
+        }
+    });
+</script>
+</body>
+</html>

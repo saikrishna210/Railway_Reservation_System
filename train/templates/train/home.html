@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% extends 'train/base.html' %}
+
+    {% block title %}
+    Home | Railway
+    {% endblock %}
+
+    {% block content %}
+    <style>
+/* PAGE BACKGROUND */
+body {
+    background: linear-gradient(120deg, #0f2027, #203a43, #2c5364);
+}
+
+/* SEARCH CARD */
+.card {
+    border-radius: 15px;
+    background: pink;
+    animation: fadeSlide 0.8s ease-in-out;
+}
+
+/* TITLE */
+.card h3 {
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+/* INPUT FIELDS */
+.form-control {
+    border-radius: 8px;
+    padding: 12px;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: #ff9800;
+    box-shadow: 0 0 8px rgba(255, 152, 0, 0.6);
+}
+
+/* BUTTON */
+.btn-primary {
+    padding: 10px 35px;
+    font-weight: bold;
+    border-radius: 25px;
+    background: linear-gradient(45deg, #ff9800, #ff5722);
+    border: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(255, 87, 34, 0.6);
+}
+
+/* ANIMATION */
+@keyframes fadeSlide {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+</style>
+
+<div class="card p-4 shadow search-card">
+    <h3 class="text-center mb-4">Search Trains</h3>
+
+    <form method="POST" action="{% url 'train:search_train' %}">
+        {% csrf_token %}
+
+        <div class="row">
+            <div class="col-md-4">
+                <input type="text" name="source" class="form-control" placeholder="From" required>
+            </div>
+
+        <div class="col-md-4">
+                <input type="text" name="destination" class="form-control" placeholder="To" required>
+            </div>
+
+        <div class="col-md-4">
+                <input type="date" name="journey_date" class="form-control" required>
+            </div>
+        </div>
+
+        <div class="text-center mt-3">
+            <button type="submit" class="btn btn-primary">
+                Search Trains
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    /* PAGE BACKGROUND */
+body {
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+}
+
+/* SUCCESS CARD */
+.success-card {
+    background: linear-gradient(135deg, #d1f0e1, #e9fbf2);
+    border-radius: 18px;
+    padding: 30px;
+    box-shadow: 0 20px 45px rgba(0,0,0,0.2);
+    animation: slideIn 0.9s ease;
+    transition: transform 0.3s ease;
+}
+
+.success-card:hover {
+    transform: translateY(-6px);
+}
+
+/* SUCCESS TITLE */
+.success-title {
+    font-weight: bold;
+    color: #0f5132;
+    animation: glow 2s infinite;
+}
+
+/* SHAKE TEXT */
+.shake {
+    display: inline-block !important;
+}
+
+.shake:hover {
+    animation: shake 0.4s ease-in-out;
+}
+
+/* STATUS */
+.status-text {
+    font-weight: bold;
+    color: #ffc107;
+    animation: pulse 1.5s infinite;
+}
+
+/* BUTTON */
+.pay-btn {
+    background: linear-gradient(45deg, #198754, #28a745);
+    border: none;
+    padding: 12px 35px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 30px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.pay-btn:hover {
+    transform: scale(1.08);
+    box-shadow: 0 12px 25px rgba(25,135,84,0.6);
+}
+
+/* ANIMATIONS */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes glow {
+    0% { text-shadow: 0 0 5px rgba(25,135,84,0.4); }
+    50% { text-shadow: 0 0 15px rgba(25,135,84,0.8); }
+    100% { text-shadow: 0 0 5px rgba(25,135,84,0.4); }
+}
+
+@keyframes shake {
+    0% { transform: translateX(0); }
+    20% { transform: translateX(-4px); }
+    40% { transform: translateX(4px); }
+    60% { transform: translateX(-4px); }
+    80% { transform: translateX(4px); }
+    100% { transform: translateX(0); }
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.6; }
+    100% { opacity: 1; }
+}
+
+</style>
+<body>
+    {% extends 'train/base.html' %}
+    {% block title %}
+    Booking Confirmation
+    {% endblock %}
+
+    {% block content %}
+    <div class="container mt-4">
+        <div class="alert alert-success">
+            <h4 class="success-title">Booking Created Successfully!</h4>
+
+            <p><strong>PNR:</strong><span class="shake-text">{{ booking.pnr }}</span></p>
+            <p><strong>Train:</strong><span class="shake-text">{{ booking.Train }}</span></p>
+            <p><strong>Seats:</strong> {{ booking.Number_of_seats }}</p>
+            <p><strong>Status:</strong> {{ booking.Booking_status }}</p>
+
+            <a href="{% url 'train:payment_page' booking.id %}" class="btn btn-success mt-2">
+            Proceed to Payment</a>
+    </div>
+</div>
+{% endblock %}
+</body>
+</html>

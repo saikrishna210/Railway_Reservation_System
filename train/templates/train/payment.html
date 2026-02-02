@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    /* PAGE BACKGROUND */
+body{
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+}
+
+/* PAYMENT CARD */
+.payment-wow {
+    max-width: 700px;
+    margin: 80px auto;
+    background: linear-gradient(135deg, #ffe4ec, #ffd1e1);
+    backdrop-filter: blur(8px);
+    border-radius: 22px;
+    padding: 40px;
+    text-align: center;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.3);
+    animation: floatIn 0.9s ease;
+    transition: transform 0.4s ease;
+}
+
+.payment-wow:hover {
+    transform: translateY(-6px);
+}
+
+/* TITLE */
+.payment-wow h2 {
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+}
+
+/* AMOUNT */
+.pay-amount {
+    font-size: 26px;
+    font-weight: bold;
+    color: #198754;
+    margin-bottom: 30px;
+    animation: pulseGlow 1.6s infinite;
+}
+
+/* PAY BUTTON */
+.pay-btn-wow {
+    background: linear-gradient(45deg, #198754, #28a745);
+    border: none;
+    padding: 14px 50px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 40px;
+    color: #fff;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.pay-btn-wow:hover {
+    transform: scale(1.08);
+    box-shadow: 0 15px 30px rgba(25,135,84,0.6);
+}
+
+/* BUTTON SHINE EFFECT */
+.pay-btn-wow::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255,255,255,0.6),
+        transparent
+    );
+}
+
+.pay-btn-wow:hover::after {
+    left: 100%;
+    transition: 0.6s;
+}
+
+/* ANIMATIONS */
+@keyframes floatIn {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulseGlow {
+    0% {
+        text-shadow: 0 0 5px rgba(25,135,84,0.4);
+    }
+    50% {
+        text-shadow: 0 0 18px rgba(25,135,84,0.9);
+    }
+    100% {
+        text-shadow: 0 0 5px rgba(25,135,84,0.4);
+    }
+}
+
+</style>
+<body>
+   {% extends 'train/base.html' %}
+
+{% block title %}Payment{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card p-4 shadow text-center payment-wow">
+        <h3 class="mb-3">Payment</h3>
+
+        <p class="fs-5">
+            Amount to Pay: <strong>₹{{ amount }}</strong>
+        </p>
+        <form method="post" action="{% url 'train:process_payment' booking.id %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-success">
+                Pay Now
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+</body>
+</html>
