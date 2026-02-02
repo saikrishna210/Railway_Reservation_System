@@ -27,12 +27,13 @@ SECRET_KEY = 'django-insecure-!=f(+5vyn%q0da8ko)4ny&ly%!q6l9p(##*4$ag5y728if3yk$
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    "railway-reservation-system-1iuu.onrender.com",
+    "railway-reservation-system-99l0.onrender.com",
     "127.0.0.1",
+    "localhost",
 
 ]
 CSRF_TRUSTED_ORIGINS = [
-    "https://railway-reservation-system-1iuu.onrender.com"
+     "https://railway-reservation-system-99l0.onrender.com",
 ]
 
 
