@@ -72,4 +72,11 @@ class Refund(models.Model):
         return f"Refund for {self.booking.pnr}"
 
 
+class profile(models.Model):
+    user=models.OneToOneField(User,on_delete=models.CASCADE)
+    is_guest=models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.user.username
+
 

@@ -22,4 +22,11 @@ urlpatterns=[
 
    path('booking/<int:booking_id>/cancel/',views.cancel_booking,name='cancel_booking'),
    path('booking/<int:booking_id>/refund/', views.refund_status, name='refund_status'),
+
+   path('book-ticket/<int:train_id>/', views.book_ticket, name='book_ticket'),
+   path('guest-login/', views.guest_login, name='guest_login'),
+   path('train-details/', views.train_detail, name='train_detail')
+
+   # path('trains/', views.trains, name='trains')
+
 ]

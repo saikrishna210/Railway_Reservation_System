@@ -123,6 +123,11 @@
             {% csrf_token %}
             {{ form.as_p }}
             <button type="submit">LOGIN</button>
+
+            <a href="{% url 'train:guest_login' %}">
+                <button type="button">Continue as Guest</button>
+            </a>
+
         </form>
         <div class="footer">
             Secure Railway Reservation System

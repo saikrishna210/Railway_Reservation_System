@@ -1,9 +1,12 @@
 from django.shortcuts import render,redirect, get_object_or_404
 # Create your views here.
-from .models import Train,Booking,Payment,Refund
+from .models import Train,Booking,Payment,Refund,profile
+from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 import uuid
+from django.contrib.auth import login
+
 
 def home(request):
     return render(request, 'train/home.html')
@@ -196,5 +199,27 @@ def refund_status(request, booking_id):
         'refund': refund
     })
 
+def guest_login(request):
+    # create unique guest username
+    guest_username = f"guest_{uuid.uuid4().hex[:8]}"
 
+    user = User.objects.create_user(
+        username=guest_username,
+        password=None
+    )
+
+    profile.objects.create(
+        user=user,
+        is_guest=True
+    )
+    login(request, user)
+    return redirect('train:home')
+
+
+def guest_restricted(view_func):
+    def wrapper(request, *args, **kwargs):
+        if hasattr(request.user, 'profile') and request.user.profile.is_guest:
+            return redirect('train:train_list')
+        return view_func(request, *args, **kwargs)
+    return wrapper
 
