@@ -12,7 +12,6 @@ urlpatterns=[
    path('booking/<int:booking_id>/confirmation/',views.booking_confirmation,name='booking_confirmation'),
    path('my-bookings/',views.my_bookings,name='my_bookings'),
 
-
    path('booking/<int:booking_id>/payment/',views.payment_page,name='payment_page'),
    
    path('booking/<int:booking_id>/card-payment/', views.card_payment, name='card_payment'),
