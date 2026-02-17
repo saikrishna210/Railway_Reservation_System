@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-!=f(+5vyn%q0da8ko)4ny&ly%!q6l9p(##*4$ag5y728if3yk$'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
     "railway-reservation-system-8v0c.onrender.com",
@@ -33,7 +33,7 @@ ALLOWED_HOSTS = [
 
 ]
 CSRF_TRUSTED_ORIGINS = [
-     "https://railway-reservation-system-99l0.onrender.com",
+     "railway-reservation-system-8v0c.onrender.com",
 ]
 
 
