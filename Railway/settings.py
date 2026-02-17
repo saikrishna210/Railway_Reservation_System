@@ -33,7 +33,7 @@ ALLOWED_HOSTS = [
 
 ]
 CSRF_TRUSTED_ORIGINS = [
-     "railway-reservation-system-8v0c.onrender.com",
+     "https://railway-reservation-system-8v0c.onrender.com",
 ]
 
 
