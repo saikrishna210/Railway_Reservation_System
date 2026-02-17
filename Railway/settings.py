@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-!=f(+5vyn%q0da8ko)4ny&ly%!q6l9p(##*4$ag5y728if3yk$
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    "railway-reservation-system-99l0.onrender.com",
+    "railway-reservation-system-8v0c.onrender.com",
     "127.0.0.1",
     "localhost",
 
